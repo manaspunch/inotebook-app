@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('../models/Note');
-const { body, validationResult } = require('express-validator')
+const { body, validationResult } = require('express-validator');
 const fetchUSer = require('../middleware/FetchUser');
 
 // ROUTE 1: Get all the notes by using: GET "/api/notes/FetchAllNotes". Doesn't require auth
