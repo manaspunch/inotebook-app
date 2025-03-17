@@ -22,7 +22,6 @@ function Notes() {
         setNote({ id: currentnote._id, etitle: currentnote.title, edescription: currentnote.description, etag: currentnote.tag });
     }
     const handleUpdateNote = () => {
-        console.log("Updating the data", note);
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
     }
@@ -61,16 +60,21 @@ function Notes() {
 
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleUpdateNote}>Update note</button>
+                            <button disabled={note.etitle.length < 3 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handleUpdateNote}>Update note</button>
                         </div>
                     </div>
                 </div>
             </div >
             <div className='row my-3'>
                 <h2>Your notes</h2>
+                <div className="container">
+                    {notes.length === 0 && 'No notes to display now..!'}
+                </div>
+
                 {notes.map((note) => {
                     return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
                 })}
+
             </div>
         </>
     )

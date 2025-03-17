@@ -65,16 +65,16 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
         const { email, password } = req.body;
-
+        let success = false;
         try {
             let user = await User.findOne({ email });
             if (!user) {
-                return res.status(401).json({ error: "Sorry invalid credentials entered for the user..!" });
+                return res.status(401).json({ success, error: "Sorry invalid credentials entered for the user..!" });
             }
 
             const passwordCompare = await bcrypt.compare(password, user.password);
             if (!passwordCompare) {
-                return res.status(401).json({ error: "Please enter valid credentials for the user..!" });
+                return res.status(401).json({ success, error: "Please enter valid credentials for the user..!" });
             }
             const data = {
                 user: {
@@ -82,7 +82,7 @@ router.post(
                 }
             }
             const authToken = jwt.sign(data, JWT_SECRET);
-            res.json({ authtoken: authToken });
+            res.json({ success: true, authtoken: authToken });
         } catch (error) {
             console.error("Some internal server error occured..!");
             res.send(res.status(500).json(error));

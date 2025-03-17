@@ -44,8 +44,8 @@ const NoteState = (props) => {
                     "tag": tag
                 }),
             });
-            const json = response.json();
-            console.log(json)
+            const note = response.json();
+            setNotes(notes.concat(note));
             getNotes();
 
         } catch (error) {
@@ -71,7 +71,7 @@ const NoteState = (props) => {
                 }),
             });
             const json = response.json();
-            console.log(json);
+
         } catch (error) {
             console.error(error.message);
         }
@@ -91,7 +91,7 @@ const NoteState = (props) => {
     }
     // Delete a note
     const deleteNote = async (id) => {
-        console.log("Deleting the note with id:" + id);
+
         const newNotes = notes.filter((note) => { return note._id === id });
         setNotes(newNotes);
         try {
@@ -103,8 +103,6 @@ const NoteState = (props) => {
                 }
 
             });
-            const json = response.json();
-            console.log(json);
             getNotes();
         } catch (error) {
             console.error(error.message);
