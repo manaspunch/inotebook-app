@@ -6,7 +6,7 @@ import NoteContext from './NoteContext'
 const NoteState = (props) => {
     const host = "http://localhost:5000";
     const [notes, setNotes] = useState([]);
-
+    const authToken = localStorage.getItem('token');
     const getNotes = async () => {
         // API call to fetch all notes
         try {
@@ -14,7 +14,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc4OTI2ZDdmNTRmZDk3NjM4MjBiYzM1In0sImlhdCI6MTczNzQ3NTg3MX0.6CCzbxBfG_KOvFdnQDwI4P2yPjXCmKTOGCnBAmT3i_A"
+                    "auth-token": authToken
                 }
 
             });
@@ -36,7 +36,7 @@ const NoteState = (props) => {
                 headers: {
                     "Accept": 'application/json',
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc4OTI2ZDdmNTRmZDk3NjM4MjBiYzM1In0sImlhdCI6MTczNzQ3NTg3MX0.6CCzbxBfG_KOvFdnQDwI4P2yPjXCmKTOGCnBAmT3i_A"
+                    "auth-token": authToken
                 },
                 body: JSON.stringify({
                     "title": title,
@@ -62,7 +62,7 @@ const NoteState = (props) => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc4OTI2ZDdmNTRmZDk3NjM4MjBiYzM1In0sImlhdCI6MTczNzQ3NTg3MX0.6CCzbxBfG_KOvFdnQDwI4P2yPjXCmKTOGCnBAmT3i_A"
+                    "auth-token": authToken
                 },
                 body: JSON.stringify({
                     "title": title,
@@ -99,7 +99,7 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc4OTI2ZDdmNTRmZDk3NjM4MjBiYzM1In0sImlhdCI6MTczNzQ3NTg3MX0.6CCzbxBfG_KOvFdnQDwI4P2yPjXCmKTOGCnBAmT3i_A"
+                    "auth-token": authToken
                 }
 
             });

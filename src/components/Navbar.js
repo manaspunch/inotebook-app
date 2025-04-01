@@ -4,6 +4,11 @@ import { Link, useLocation } from 'react-router-dom'
 
 
 const Navbar = () => {
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+
+    }
     let location = useLocation();
     useEffect(() => {
 
@@ -19,10 +24,10 @@ const Navbar = () => {
 
                     </div>
                 </div>
-                <form className='d-felex'>
+                {!localStorage.getItem('token') ? <form className='d-felex'>
                     <Link className="btn btn-success mx-2" to="/login" role="button">Login</Link>
                     <Link className="btn btn-info mx-2" to="/signup" role="button">Signup</Link>
-                </form>
+                </form> : <Link className="btn btn-warning mx-2" to="/login" onClick={handleLogout} >Logout</Link>}
             </div>
         </nav>
     )

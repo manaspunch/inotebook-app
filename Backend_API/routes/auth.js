@@ -20,13 +20,14 @@ try {
         async (req, res) => {
             // Finds the validation errors in this request and wraps them in an object with handy functions
             const errors = validationResult(req);
+            let success = false;
             if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
+                return res.status(400).json({ success, errors: errors.array() });
             }
             // Check whether the user already exist or not
             let user = await User.findOne({ email: req.body.email });
             if (user) {
-                return res.status(400).json({ error: 'Sorry, the user with same email id already exist' });
+                return res.status(400).json({ success, error: 'Sorry, the user with same email id already exist' });
             }
 
             const salt = await bcrypt.genSalt(10);
@@ -45,7 +46,7 @@ try {
                 }
             }
             const authToken = jwt.sign(data, JWT_SECRET);
-            res.json({ authtoken: authToken });
+            res.json({ success: true, authtoken: authToken });
         })
 } catch (error) {
     console.error("Some internal server error occured..!");
